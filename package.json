@@ -1,0 +1,25 @@
+{
+  "name": "furigana-extension",
+  "version": "1.0.0",
+  "description": "A chrome extension that injects furigana into all kanji in a given HTML page",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidwt5/furigana-extension.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davidwt5/furigana-extension/issues"
+  },
+  "homepage": "https://github.com/davidwt5/furigana-extension#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.14"
+  },
+  "dependencies": {
+    "unofficial-jisho-api": "^2.2.2"
+  }
+}
