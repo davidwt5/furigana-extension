@@ -18,8 +18,5 @@
   "homepage": "https://github.com/davidwt5/furigana-extension#readme",
   "devDependencies": {
     "nodemon": "^2.0.14"
-  },
-  "dependencies": {
-    "unofficial-jisho-api": "^2.2.2"
   }
 }
