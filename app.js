@@ -9,15 +9,9 @@
 */
 
 const {
-  hasKanji,
   replaceKanjiWithHiragana,
-  katakanaToHiragana,
 } = require("./modules/japaneseTextHelpers.js");
 
-// One sentence
-// const text = "持って行くウィキペディアWikipedia日本は僕の一番大好きな国！";
-// console.log(await replaceKanjiWithHiragana(text));
-
-// Multiple Sentences
-const text = "初めまして。デビトです。二十二歳です。";
-replaceKanjiWithHiragana(text).then((res) => console.log(res));
+const morphemesFetch = require("./modules/morphemesFetch.js");
+const text = "遠く";
+morphemesFetch(text).then((res) => console.log(res.word_list));
