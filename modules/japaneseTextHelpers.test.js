@@ -24,3 +24,8 @@ test("English text with special characters", async () => {
   expect(result).toBe("I can't speak Japanese ;(");
 });
 
+test("Multiple sentences", async () => {
+  const text = "今日は豚骨ラーメンを食べた。美味しかった。"
+  const result = await replaceKanjiWithHiragana(text);
+  expect(result).toBe("きょうはとんこつラーメンをたべた。おいしかった。");
+});
