@@ -1,0 +1,11 @@
+{
+  "name": "Furigana Project",
+  "version": "1.0",
+  "description": "Adds furigana to all kanji in the page",
+  "background":{
+    "service_worker": "background.js"
+  },
+  "permissions": ["scripting"],
+  "host_permissions": ["<all_urls>"],
+  "manifest_version": 3
+}

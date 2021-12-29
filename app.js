@@ -10,8 +10,8 @@
 
 const {
   replaceKanjiWithHiragana,
-} = require("./modules/japaneseTextHelpers.js");
+} = require("./scripts/modules/japaneseTextHelpers.js");
 
-const morphemesFetch = require("./modules/morphemesFetch.js");
+const morphemesFetch = require("./scripts/modules/morphemesFetch.js");
 const text = "遠く";
 morphemesFetch(text).then((res) => console.log(res.word_list));
