@@ -2,10 +2,13 @@
   "name": "Furigana Project",
   "version": "1.0",
   "description": "Adds furigana to all kanji in the page",
-  "background":{
-    "service_worker": "background.js"
-  },
-  "permissions": ["scripting"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["contentScript.js"],
+      "run_at": "document_end"
+    }
+  ],
   "host_permissions": ["<all_urls>"],
   "manifest_version": 3
 }
