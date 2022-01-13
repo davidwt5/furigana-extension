@@ -1,11 +1,25 @@
 /**
 Furaganise:
-1) Use Morpho API to break up the phrase
-2) Re-construct the the text where all the kanji is turned into hiragana
-  - Append each morpheme to an empty string.
-  - If said morpheme contains a kanji, append the hiraganised reading instead
-  - Else append the morhpeme
-3) Construct a html element out of it
+  1) Use Morpho API to break up the phrase
+  2) Re-construct the the text where all the kanji is turned into hiragana
+    - Append each morpheme to an empty string.
+    - If said morpheme contains a kanji, append the hiraganised reading instead
+    - Else append the morhpeme
+  3) Construct a html element out of it
+
+Solution 1:
+  DFS to reach every node
+  If innerText is not empty, throw the text into the HTML generator
+  Replace the innerHTML with the output
+
+  Problem: Multiple API hits per page. If a page has a lot of nodes, could be too many hits.
+
+Solution 2:
+  DFS, every time we hit a leaf node with text, give it a data id property and save the text in an array
+  combine the array into a single mega string and make the API call
+  replace all the text with the modified text by looking up their IDs
+
+  Problem: Run through the document multiple times, slower. But only a single API call.
 */
 
 /* Helper functions */
@@ -34,23 +48,6 @@ async function morphemesFetch(string) {
 function hasKanji(str) {
   const regex = new RegExp("[\u4e00-\u9faf\u3400-\u4dbf]");
   return regex.test(str);
-}
-
-// Replace all kanji in a text with hiragana
-// This function should generate a ruby innerhtml instead
-async function replaceKanjiWithHiragana(text) {
-  const word_list = (await morphemesFetch(text)).word_list;
-  let convertedText = "";
-
-  for (let sentence of word_list) {
-    for (let morpheme of sentence) {
-      hasKanji(morpheme[0])
-        ? (convertedText += katakanaToHiragana(morpheme[2])) // Instead of replacing with hiragana, create a HTML using ruby
-        : (convertedText += morpheme[0]);
-    }
-  }
-
-  return convertedText;
 }
 
 // Converts a full width katakana string into hiragana
@@ -106,22 +103,6 @@ async function init() {
   }
 
   DFS(body);
-
-  /* Solution 1:
-    DFS to reach every node
-    If innerText is not empty, throw the text into the HTML generator
-    Replace the innerHTML with the output
-
-    Problem: Multiple API hits per page. If a page has a lot of nodes, could be too many hits.
-  */
-
-  /* Solution 2:
-    DFS, every time we hit a leaf node with text, give it a data id property and save the text in an array
-    combine the array into a single mega string and make the API call
-    replace all the text with the modified text by looking up their IDs
-
-    Problem: Run through the document multiple times, slower. But only a single API call.
-  */
 }
 
 init();
