@@ -53,11 +53,6 @@ async function replaceKanjiWithHiragana(text) {
   return convertedText;
 }
 
-// Generates a ruby html element with furigana for kanji characters
-async function furiganise(text) {
-  return "<ruby>日本語 <rp>(</rp><rt>にほんご</rt><rp>)</rp></ruby>";
-}
-
 // Converts a full width katakana string into hiragana
 // Some katakana only quirks like "ー" will be converted into an unusual character
 // But this is only meant to work for kanji translated into katakana so this issue shouldn't arise
@@ -70,6 +65,26 @@ function katakanaToHiragana(katakana) {
   }
 
   return hiragana;
+}
+
+function rubyGenerator(kanji, furigana) {
+  return `<ruby>${kanji}<rp>(</rp><rt>${furigana}</rt><rp>)</rp></ruby>`;
+}
+
+// Generates a ruby html element with furigana for kanji characters
+async function furiganise(text) {
+  const word_list = (await morphemesFetch(text)).word_list;
+  let innerHTML = "";
+
+  for (let sentence of word_list) {
+    for (let morpheme of sentence) {
+      hasKanji(morpheme[0])
+        ? (innerHTML += rubyGenerator(morpheme[0], katakanaToHiragana(morpheme[2])))
+        : (innerHTML += morpheme[0]);
+    }
+  }
+
+  return innerHTML;
 }
 
 /* Main function */
